@@ -14,10 +14,10 @@
       var timeout = 2000; // ms
       var ch1 = [];
       var ch2 = [];
-    
+      
       // Makes AJAX request to Flask server
       function executeQuery() { 
-          $.get($SCRIPT_ROOT + '/_model_output', function(data) {
+        $.get($SCRIPT_ROOT + '/_model_output', function(data) {
             $("#model_output").text(data.result);
           });
           $.get($SCRIPT_ROOT + '/_model_data', function(data) {
@@ -32,96 +32,95 @@
             ch7 = (document.getElementById("ch7").checked || document.getElementById("all").checked) ? data.result[6] : 0;
             ch8 = (document.getElementById("ch8").checked || document.getElementById("all").checked) ? data.result[7] : 0;
           });
-      }
-    
-      function plotData() {
-        console.log(ch1.length);
-        Highcharts.chart('container', {
-    
-          title: {
+        }
+        
+        function plotData() {
+          Highcharts.chart('container', {
+            
+            title: {
               text: 'Live Voltage Readings'
-          },
-    
-          yAxis: {
+            },
+            
+            yAxis: {
               title: {
-                  text: 'Voltage'
+                text: 'Voltage'
               }
-          },
-    
-          legend: {
+            },
+            
+            legend: {
               layout: 'vertical',
               align: 'right',
               verticalAlign: 'middle'
-          },
-    
-          plotOptions: {
+            },
+            
+            plotOptions: {
               series: {
-                  label: {
-                      connectorAllowed: false
-                  }
+                label: {
+                  connectorAllowed: false
+                }
               }
-          },
-    
-          series: [{
+            },
+            
+            series: [{
               name: 'Channel 1',
               data: ch1
-          }, {
+            }, {
               name: 'Channel 2',
               data: ch2
-          }, {
+            }, {
               name: 'Channel 3',
               data: ch3
-          }, {
+            }, {
               name: 'Channel 4',
               data: ch4
-          }, {
+            }, {
               name: 'Channel 5',
               data: ch5
-          }, {
+            }, {
               name: 'Channel 6',
               data: ch6
-          }, {
+            }, {
               name: 'Channel 7',
               data: ch7
-          }, {
+            }, {
               name: 'Channel 8',
               data: ch8
-          }],
-    
-          responsive: {
+            }],
+            
+            responsive: {
               rules: [{
-                  condition: {
-                      maxWidth: 500
-                  },
-                  chartOptions: {
-                      legend: {
-                          layout: 'horizontal',
-                          align: 'center',
-                          verticalAlign: 'bottom'
-                      }
+                condition: {
+                  maxWidth: 500
+                },
+                chartOptions: {
+                  legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
                   }
+                }
               }]
-          }
-    
+            }
+            
+          });
+        }
+        
+        $(function() {
+          setInterval(executeQuery, timeout);
+          setInterval(plotData, timeout);
         });
-      }
-    
-      $(function() {
-        setInterval(executeQuery, timeout);
-        setInterval(plotData, timeout);
-      });
-    </script>
+        </script>
     
     <body>
-      <h1>Flask Server for Reading ML Data</h1>
+      <h1>Live Voltage Data</h1>
       Model output: <span id="model_output"></span><br>
       Model data: <span id="model_data"></span>
-    
+      
       <figure class="highcharts-figure">
         <div id="container"></div>
-    </figure>
-
-    <div class="container">
+      </figure>
+      
+      <div class="container">
         <h2>Choose which channels to view:</h2>
         <form>
           <label class="checkbox-inline">
@@ -152,5 +151,42 @@
             <input type="checkbox" id="ch8" value="">Channel 8
           </label>
         </form>
-    </div>
+      </div>
+
+
+
+      <button>Connect Device</button>
+      <script type="text/javascript">
+        function isWebBLEAvailable() {
+            if (!navigator.bluetooth) {
+                console.log('BLE not available')
+                return false
+            }
+            console.log('Success')
+            return true
+        }
+
+        function getDeviceInfo() {
+            let options = {
+                filters: [
+                    { name: 'MINT Remote'}
+                ]
+            }
+
+            navigator.bluetooth.requestDevice(options).then(device => {
+                console.log('Name: ' + device.name)
+            }).catch( error => {
+                console.log('Error: ' + error)
+            })
+        }
+
+        document.querySelector('button').addEventListener('click', function(event) {
+            event.stopPropagation()
+            event.preventDefault()
+            
+            if(isWebBLEAvailable()) {
+                getDeviceInfo()
+            }
+        })
+      </script>
     </body>
