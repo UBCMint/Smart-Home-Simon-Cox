@@ -1,0 +1,28 @@
+<head>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type=text/javascript>
+      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+</head>
+
+<body>
+  <h1>Connect</h1>
+  <br />
+  <br />
+  <div>
+    <form>
+    {% for port in ports %}
+      <label class="radio-inline">
+        <input type="radio" id="{{port[0]}}" value="">{{port[0]}}: {{port[1]}}
+      </label>
+    {% endfor %}
+      <br />
+      <input type="submit" value ="Submit">
+    </form>
+  </div>
+</body>
