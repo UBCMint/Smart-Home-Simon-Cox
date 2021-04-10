@@ -8,7 +8,17 @@
     <script type=text/javascript>
       $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
     </script>
-</head>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Comfortaa', cursive;
+      }
+    </style>
+
+  </head>
     
     <script type=text/javascript>
       var timeout = 2000; // ms
@@ -17,8 +27,19 @@
       
       // Makes AJAX request to Flask server
       function executeQuery() { 
-        $.get($SCRIPT_ROOT + '/_model_output', function(data) {
-            $("#model_output").text(data.result);
+        $.get($SCRIPT_ROOT  + '/_model_output', function(data) {
+            $("#model_out").text(data.result);
+            if (data.result == "0") {
+              console.log('the model output is 0');
+              console.log(document.getElementById("one"));
+              //document.getElementById("one").style.visibility="hidden";
+              document.getElementById("one").style.visibility="visible";
+            } else {
+              console.log('the model output is 1')
+              console.log(document.getElementById("zero"));
+              //document.getElementById("zero").style.visibility="hidden";
+              document.getElementById("one").style.visibility="visible";
+            }
           });
           $.get($SCRIPT_ROOT + '/_model_data', function(data) {
             $("#model_data").text(data.result);
@@ -114,7 +135,16 @@
     <body>
       <h1>Live Voltage Data</h1>
       Model output: <span id="model_output"></span><br>
-      Model data: <span id="model_data"></span>
+      <!-- Model data: <span id="model_data"></span> -->
+
+      <div id="zero" style="visibility: hidden">
+        <!-- <p>Red image</p> -->
+        <img src="{{url_for('static', filename='red3.png')}}" width="55" height="40"/>
+      </div>
+      <div id="one" style="visibility: hidden">
+        <!-- <p>Green image</p> -->
+        <img src="{{ url_for('static', filename='green3.png') }}" width="55" height="40"/>
+      </div>
       
       <figure class="highcharts-figure">
         <div id="container"></div>
