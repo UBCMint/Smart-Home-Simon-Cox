@@ -3,6 +3,7 @@ import torch
 import time
 import numpy as np
 from scipy import signal
+import random
 
 
 class DeployModel:
@@ -65,5 +66,5 @@ class DeployModel:
             out = torch.argmax(out, dim=1).item()
 
             data = [d.tolist() for d in x]
-
+        out = np.random.randint(2)
         return data, out
