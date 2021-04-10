@@ -9,6 +9,63 @@
       $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
     </script>
     </head>
+
+    <button>Connect Device</button>
+    <script type="text/javascript">
+      let currDevice = null
+      let gattCharacteristic = null
+
+      function isWebBLEAvailable() {
+          if (!navigator.bluetooth) {
+              console.log('BLE not available')
+              return false
+          }
+          console.log('Success')
+          return true
+      }
+
+      function getDeviceInfo() {
+          let options = {
+              filters: [
+                {services: [0xFFE0]}
+              ]
+          }
+
+          navigator.bluetooth.requestDevice(options).then(device => {
+              console.log('Name: ' + device.name)
+              
+              currDevice = device
+              currDevice.gatt.connect().then(server => {
+                return server.getPrimaryService(0xFE00)
+              }).then(service => {
+                return service.getCharacteristic(0xFFE1)
+              }).then(characteristic => {
+                gattCharacteristic = characteristic
+                return gattCharacteristic
+              })
+          }).catch( error => {
+              console.log('Error: ' + error)
+          })
+      }
+
+      document.querySelector('button').addEventListener('click', function(event) {
+          event.stopPropagation()
+          event.preventDefault()
+          
+          if(isWebBLEAvailable()) {
+              getDeviceInfo()
+          }
+      })
+
+      function triggerDevice() {
+        console.log("Trigger device")
+        if (!gattCharacteristic) {
+          return
+        }
+
+        gattCharacteristic.writeValue(new TextEncoder().encode(String('o')))
+      }
+    </script>
     
     <script type=text/javascript>
       var timeout = 2000; // ms
@@ -19,6 +76,10 @@
       function executeQuery() { 
         $.get($SCRIPT_ROOT + '/_model_output', function(data) {
             $("#model_output").text(data.result);
+
+            if (data.result === 1) {
+              triggerDevice();
+            }
           });
           $.get($SCRIPT_ROOT + '/_model_data', function(data) {
             $("#model_data").text(data.result);
@@ -155,38 +216,4 @@
 
 
 
-      <button>Connect Device</button>
-      <script type="text/javascript">
-        function isWebBLEAvailable() {
-            if (!navigator.bluetooth) {
-                console.log('BLE not available')
-                return false
-            }
-            console.log('Success')
-            return true
-        }
-
-        function getDeviceInfo() {
-            let options = {
-                filters: [
-                    { name: 'MINT Remote'}
-                ]
-            }
-
-            navigator.bluetooth.requestDevice(options).then(device => {
-                console.log('Name: ' + device.name)
-            }).catch( error => {
-                console.log('Error: ' + error)
-            })
-        }
-
-        document.querySelector('button').addEventListener('click', function(event) {
-            event.stopPropagation()
-            event.preventDefault()
-            
-            if(isWebBLEAvailable()) {
-                getDeviceInfo()
-            }
-        })
-      </script>
     </body>
