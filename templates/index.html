@@ -9,7 +9,7 @@
       $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
     </script>
     </head>
-
+    
     <button>Connect Device</button>
     <script type="text/javascript">
       let currDevice = null
@@ -28,7 +28,7 @@
           let options = {
               filters: [
                 {services: [0xFFE0]}
-              ]
+              ],
           }
 
           navigator.bluetooth.requestDevice(options).then(device => {
@@ -36,7 +36,7 @@
               
               currDevice = device
               currDevice.gatt.connect().then(server => {
-                return server.getPrimaryService(0xFE00)
+                return server.getPrimaryService(0xFFE0) //changed from 0xFE00 
               }).then(service => {
                 return service.getCharacteristic(0xFFE1)
               }).then(characteristic => {
