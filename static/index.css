@@ -160,21 +160,46 @@ body {
 #connected__body {
   display: flex;
   flex-flow: column nowrap;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 105px);
 }
 
 #graph {
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: flex-end;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  align-items: center;
   flex-grow: 2;
 }
 
-#graph__button {
+#graph__slide {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+#controls__button {
+  background-color: var(--blue);
+  color: var(--white);
+  border: 0;
+  border-radius: 9px;
+  padding: 10px 0;
+  font-size: 20px;
+  margin: 30px auto;
+  width: 150px;
+  font-weight: bold;
+  text-align: center;
   cursor: pointer;
-  width: 80px;
+}
+
+#graph__button {
+  display: flex;
+  justify-content: center;
+  transform: rotate(180deg);
   margin: 0 0 20px 0;
+  width: 100%
+}
+
+#graph__button img {
+  cursor: pointer;
 }
 
 /*  Radio Buttons  */

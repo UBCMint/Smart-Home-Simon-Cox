@@ -82,9 +82,10 @@ const main = () => {
         console.log(result)
         if(result.connected) {
           console.log("Move on to next screen!")
-          updateSelector("Connect to Bluetooth", [])
-          updateAlert("Error", "Could not connect to bluetooth", "Ok")
-          getBluetooth()
+          window.location.replace('/connected')
+          // updateSelector("Connect to Bluetooth", [])
+          // updateAlert("Error", "Could not connect to bluetooth", "Ok")
+          // getBluetooth()
         } else {
           $("#alert").show();
         }

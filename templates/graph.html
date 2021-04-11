@@ -3,19 +3,19 @@
   <div id="graph__button">
     <img src="{{url_for('static', filename='info_arrow.png')}}" alt="Show/Hide graph" />
   </div>
-  <div id="graph__slide">
+  <div id="graph__slide" style="display: flex;">
     <figure class="highcharts-figure">
       <div id="container"></div>
     </figure>
     
-    <div class="graph__container" style="display: none;">
+    <div class="graph__container">
       <form id="graph__form">
         <label class="checkbox-inline">
           <input type="checkbox" id="all" value="" checked>All Channels
         </label>
         {% for channel in range(channels) %}
         <label class="checkbox-inline">
-          <input type="checkbox" id="ch{{channel}}" value="">Channel {{channel}}
+          <input type="checkbox" id="ch{{channel + 1}}" value="">Channel {{channel + 1}}
         </label>
         {% endfor %}
       </form>
