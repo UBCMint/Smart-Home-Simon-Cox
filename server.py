@@ -6,7 +6,7 @@ import time
 
 board_type = 0 # Cyton board
 
-dm = DeployModel('')
+dm = DeployModel()
 app = Flask(__name__)
 
 device = None
@@ -22,11 +22,11 @@ def connected():
 
 @app.route('/api/model_data')
 def model_data():
-	return jsonify(result=dm.get_data_and_model()[0])
+	return jsonify(result=dm.get_data_and_output()[0])
 	
 @app.route('/api/model_output')
 def model_output():
-	return jsonify(result=dm.get_data_and_model()[1])
+	return jsonify(result=dm.get_data_and_output()[1])
 
 @app.route('/api/ports')
 def ports():
