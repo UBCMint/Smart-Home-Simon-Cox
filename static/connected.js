@@ -1,19 +1,7 @@
-const updateSelector = (title, list) => {
-  $("#selector__inner h1").text(title)
-  $(".selector__option").remove()
-  list.forEach((item, index) => {
-    let option = $("#selector__first").clone().attr("id", "").addClass("selector__option") 
-    let input = option.find("input");
-    input.attr("value", item.value);
-    if (index == 0) {
-      option.find("input").prop("checked", true);
-    }
-    option.insertAfter("#selector__first");
-    option.find("label").text(item.name);
-  })
-  $("#selector__form").children().first().hide();
-  $("#selector").show()
-}
+let buttons = ["#controls__channel_up", "#controls__channel_down", "#controls__power_btn"]
+let currentBtn = 0
+let channels = 0
+let showGraph = false
 
 const updateAlert = (title, description, button) => {
   $("#alert__title").text(title)
@@ -21,13 +9,33 @@ const updateAlert = (title, description, button) => {
   $("#alert__button").text(button)
 }
 
-const getSerialPorts = () => {
-  $.ajax({
-    url: "/api/ports",
-    success: ( result ) => {
-      updateSelector("Select Cyton Board", result.ports)
-    }
-  })
+const generateGraph = () => {
+  $.get($SCRIPT_ROOT  + '/_model_output', function(data) {
+      $("#model_out").text(data.result);
+      if (data.result == "0") {
+        console.log('the model output is 0');
+        console.log(document.getElementById("one"));
+        //document.getElementById("one").style.visibility="hidden";
+        document.getElementById("one").style.visibility="visible";
+      } else {
+        console.log('the model output is 1')
+        console.log(document.getElementById("zero"));
+        //document.getElementById("zero").style.visibility="hidden";
+        document.getElementById("one").style.visibility="visible";
+      }
+    });
+    $.get($SCRIPT_ROOT + '/_model_data', function(data) {
+      $("#model_data").text(data.result);
+      
+      ch1 = (document.getElementById("ch1").checked || document.getElementById("all").checked) ? data.result[0] : 0;
+      ch2 = (document.getElementById("ch2").checked || document.getElementById("all").checked) ? data.result[1] : 0;
+      ch3 = (document.getElementById("ch3").checked || document.getElementById("all").checked) ? data.result[2] : 0;
+      ch4 = (document.getElementById("ch4").checked || document.getElementById("all").checked) ? data.result[3] : 0;
+      ch5 = (document.getElementById("ch5").checked || document.getElementById("all").checked) ? data.result[4] : 0;
+      ch6 = (document.getElementById("ch6").checked || document.getElementById("all").checked) ? data.result[5] : 0;
+      ch7 = (document.getElementById("ch7").checked || document.getElementById("all").checked) ? data.result[6] : 0;
+      ch8 = (document.getElementById("ch8").checked || document.getElementById("all").checked) ? data.result[7] : 0;
+    });
 }
 
 const isWebBLEAvailable = () => {
@@ -63,35 +71,35 @@ const getBluetooth = () => {
   }
 }
 
-getSerialPorts()
+const selectButton = (btn, lastBtn) => {
+  $(`${btn}_selected`).show()
+  $(`${lastBtn}_selected`).hide()
+  $(lastBtn).show()
+  $(btn).hide()
+}
 
 const main = () => {
   console.log("Loaded")
   $("#alert__button").click(() => {$("#alert").hide()})
-  $("form").submit((event) => {
-    console.log(event)
-    let port = $('input[name=radio]:checked', '#selector__form').val()
-    event.preventDefault();
-    $("#selector__submit").attr("value", "Pairing...").css("opacity", "0.6")
-    $.ajax({
-      type: "POST",
-      url: "/api/connect",
-      data: {"port": port},
-      dataType: "json",
-      success: ( result ) => {
-        console.log(result)
-        if(result.connected) {
-          console.log("Move on to next screen!")
-          updateSelector("Connect to Bluetooth", [])
-          updateAlert("Error", "Could not connect to bluetooth", "Ok")
-          getBluetooth()
-        } else {
-          $("#alert").show();
-        }
-        $("#selector__submit").attr("value", "Next").css("opacity", "1")
-      }
-    })
+  $("#graph__button").click(() => {
+    if(showGraph) {
+      $("#graph__container").hide()
+    } else {
+      $("#graph__container").show()
+    }
+    showGraph = !showGraph
   })
+  channels = $("#graph__form").children().length - 1
+  setInterval(() => {
+    let lastBtn = currentBtn
+    if(currentBtn >= buttons.length - 1) {
+      currentBtn = 0
+    } else {
+      currentBtn += 1
+    }
+    selectButton(buttons[currentBtn], buttons[lastBtn])
+  }, 1000)
+
 }
 
 $( document ).ready(main);

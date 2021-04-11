@@ -1,0 +1,25 @@
+{% macro graph(channels=8) -%}
+<div id="graph">
+  <div id="graph__button">
+    <img src="{{url_for('static', filename='info_arrow.png')}}" alt="Show/Hide graph" />
+  </div>
+  <div id="graph__slide">
+    <figure class="highcharts-figure">
+      <div id="container"></div>
+    </figure>
+    
+    <div class="graph__container" style="display: none;">
+      <form id="graph__form">
+        <label class="checkbox-inline">
+          <input type="checkbox" id="all" value="" checked>All Channels
+        </label>
+        {% for channel in range(channels) %}
+        <label class="checkbox-inline">
+          <input type="checkbox" id="ch{{channel}}" value="">Channel {{channel}}
+        </label>
+        {% endfor %}
+      </form>
+    </div>
+  </div>
+</div>
+{%- endmacro %}

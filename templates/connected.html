@@ -2,14 +2,16 @@
 {% from 'navbar.html' import navbar as navbar %}
 {% from 'controls.html' import controls as controls %}
 {% from 'alert.html' import alert as alert %}
+{% from 'graph.html' import graph as graph %}
 <html>
   {{ head('connected.js') }}
 
   <body>
     {{ navbar() }}
     {{ alert(title="Error", desc="Board disconnected") }}
-    <div>
+    <div id="connected__body">
       {{controls()}}
+      {{graph()}}
     </div>
   </body>
 
