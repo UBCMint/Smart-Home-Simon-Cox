@@ -146,8 +146,7 @@ const isWebBLEAvailable = () => {
 const getDeviceInfo = () => {
     let options = {
         filters: [
-            // { name: 'MINT Remote'}
-            { services: ['battery_service'] }
+            {services: [0xFFE0]}
         ]
     }
 
