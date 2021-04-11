@@ -13,11 +13,10 @@ def model_data():
 def model_output():
 	return jsonify(result=dm.get_data_and_model()[1])
 
-
 @app.route('/')
 def index():
 	return render_template('index.html')
 
-@app.route('/connect')
+@app.route('/api/ports')
 def connect():
-  return render_template('connect.html', ports=get_ports())
+  return get_ports()

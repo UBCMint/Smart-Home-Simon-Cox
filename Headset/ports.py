@@ -2,7 +2,9 @@
 
 import serial.tools.list_ports
 
-def get_ports():
-  return serial.tools.list_ports.comports()
-  # for port, desc, hwid in sorted(ports):
-    # print("{}: {} [{}]".format(port, desc, hwid))
+def get_ports() -> dict:
+  ports =  serial.tools.list_ports.comports()
+  port_list = []
+  for port, desc, hwid in sorted(ports):
+    port_list.append({'name': port, 'desc': desc})
+  return {"ports": port_list}

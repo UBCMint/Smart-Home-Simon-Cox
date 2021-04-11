@@ -1,0 +1,9 @@
+{% macro head() -%}
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
+  <script src="{{ url_for('static', filename='index.js') }}"></script>
+</head>
+{%- endmacro %}
