@@ -1,11 +1,13 @@
 {% from 'head.html' import head as head %}
 {% from 'navbar.html' import navbar as navbar %}
 {% from 'selector.html' import selector as selector %}
+{% from 'alert.html' import alert as alert %}
 <html>
   {{ head() }}
 
   <body>
     {{ navbar() }}
+    {{ alert(title="Error", desc="Could not find Cyton board on this port") }}
     <div>
       {{selector()}}
     </div>

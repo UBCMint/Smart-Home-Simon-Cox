@@ -29,15 +29,16 @@ class Device:
     self.disconnect()
     return data
 
-  def connect(self):
+  def connect(self) -> bool:
     try:
       self.board.prepare_session()
     except BrainFlowError as error:
       if(error.exit_code == 7):
         print("Error. Check if board is on, dongle is connected")
-        return
+        return False
     self.board.start_stream()
     self.streaming = True
+    return True
   
   def disconnect(self):
     if (self.streaming):

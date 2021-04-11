@@ -2,6 +2,7 @@
   --mint: #35CDC5;
   --blue: #1D809F;
   --grey: #808080;
+  --lightgrey: #F1F1F1;
   --black: #060606;
   --yellow: #ECB807;
   --white: #fff;
@@ -43,10 +44,6 @@ body {
   overflow: hidden;
 }
 
-#selector__inner {
-
-}
-
 #selector__form {
   display: flex;
   flex-flow: column nowrap;
@@ -64,6 +61,50 @@ body {
   font-weight: bold;
 }
 
+#alert {
+  position: fixed;
+  display: flex;
+  flex-flow: column nowrap;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 200px);
+  width: 100vw;
+  overflow: hidden;
+}
+
+#alert__inner {
+  width: 300px;
+  background-color: var(--lightgrey);
+  padding: 20px 100px;
+  border-radius: 9px;
+}
+
+#alert__title {
+  margin: 0
+}
+
+#alert__desc {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+#alert__button {
+  background-color: var(--blue);
+  color: var(--white);
+  border-radius: 9px;
+  padding: 10px 0;
+  font-size: 20px;
+  margin: 30px auto;
+  width: 150px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+
+/*  Radio Buttons  */
 .radio-inline {
   display: block;
   position: relative;

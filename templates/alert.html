@@ -1,0 +1,9 @@
+{% macro alert(title="Title", desc="Desc", button="Ok") -%}
+<div id="alert" style="display: none;">
+  <div id="alert__inner">
+    <h1 id="alert__title">{{title}}</h1>
+    <p id="alert__desc">{{desc}}</p>
+    <div id="alert__button">{{button}}</div>
+  </div>
+</div>
+{%- endmacro %}
