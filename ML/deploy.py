@@ -79,6 +79,6 @@ class DeployModel:
             out = self.model(proc_data)
             out = torch.argmax(out, dim=1).item()
 
-            data = [d.tolist() for d in x]
+            data = [d[:500].tolist() for d in x[:8]
 
         return data, out
