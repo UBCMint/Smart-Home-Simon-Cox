@@ -104,6 +104,59 @@ body {
   cursor: pointer;
 }
 
+#controls {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#controls__buttons {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+#controls__channel {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin: 0 100px 0 0;
+}
+
+#controls__power {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+#controls h2 {
+  color: var(--grey);
+  margin: 0 0 0 20px;
+  font-size: 30px;
+}
+
+.controls__power_btn {
+  height: 40px;
+  width: 40px;
+  border-style: solid;
+  border-color: var(--blue);
+  border-width: 7px;
+  border-radius: 100%;
+}
+
+#controls__power_btn_selected {
+  background-color: var(--blue);
+}
+
+#controls__power_btn_clicked {
+  background-color: var(--yellow);
+}
+
+.controls__down {
+  transform: rotate(180deg);
+  margin: 10px 0 0 0;
+}
+
 /*  Radio Buttons  */
 .radio-inline {
   display: block;

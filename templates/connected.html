@@ -1,15 +1,15 @@
 {% from 'head.html' import head as head %}
 {% from 'navbar.html' import navbar as navbar %}
-{% from 'selector.html' import selector as selector %}
+{% from 'controls.html' import controls as controls %}
 {% from 'alert.html' import alert as alert %}
 <html>
-  {{ head('index.js') }}
+  {{ head('connected.js') }}
 
   <body>
     {{ navbar() }}
-    {{ alert(title="Error", desc="Could not find Cyton board on this port") }}
+    {{ alert(title="Error", desc="Board disconnected") }}
     <div>
-      {{selector()}}
+      {{controls()}}
     </div>
   </body>
 

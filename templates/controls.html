@@ -1,0 +1,32 @@
+{% macro controls() -%}
+<div id="controls">
+  <div id="controls__inner">
+    <h1>Options Selection</h1>
+    <div id="controls__buttons">
+      <div id="controls__channel">
+        <div id="controls__channel_btns">
+          <div id="controls__channel_btns_up">
+            <img src="{{url_for('static', filename='up_arrow_selected.svg')}}" alt="Up arrow" id="controls__channel_up_selected" style="display: none;" />
+            <img src="{{url_for('static', filename='up_arrow_clicked.svg')}}" alt="Up arrow" id="controls__channel_up_clicked" style="display: none;" />
+            <img src="{{url_for('static', filename='up_arrow.svg')}}" alt="Up arrow" id="controls__channel_up" />
+          </div>
+          <div id="controls__channel_btns_down">
+            <img src="{{url_for('static', filename='up_arrow_selected.svg')}}" alt="Down arrow" id="controls__channel_down_selected" class="controls__down" style="display: none;" />
+            <img src="{{url_for('static', filename='up_arrow_clicked.svg')}}" alt="Down arrow" id="controls__channel_down_clicked" class="controls__down" style="display: none;" />
+            <img src="{{url_for('static', filename='up_arrow.svg')}}" alt="Down arrow" class="controls__down" id="controls__channel_down" />
+          </div>
+        </div>
+        <h2>Channel</h2>
+      </div>
+      <div id="controls__power">
+        <div>
+          <div id="controls__power_btn" class="controls__power_btn"></div>
+          <div id="controls__power_btn_selected" class="controls__power_btn" style="display: none;" ></div>
+          <div id="controls__power_btn_clicked" class="controls__power_btn" style="display: none;" ></div>
+        </div>
+        <h2>Power</h2>
+      </div>
+    </div>
+  </div>
+</div>
+{%- endmacro %}
