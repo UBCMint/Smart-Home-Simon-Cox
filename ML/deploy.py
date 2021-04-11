@@ -19,12 +19,12 @@ class DeployModel:
 
         # load model
         model = Freq_Model()
-        pretrained_dict = torch.load(model_path)['state_dict']
+        pretrained_dict = torch.load(model_path, map_location='cpu')['state_dict']
         model_dict = model.state_dict()
         pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
         model_dict.update(pretrained_dict)
         model.load_state_dict(model_dict)
-        self.model = model.cuda().eval()
+        self.model = model.eval()
 
     def process_data(self, data, samp_freq=250, nperseg=32):
         # assume we receive ch*seq_len array, choose nperseg to make a square array
@@ -62,6 +62,9 @@ class DeployModel:
         label = 0 if label == 'left' else 1
 
         self.dataind += 1
+        if self.dataind > 40:
+            self.dataind = 0
+            random.shuffle(self.datapaths)
 
         return data, label
         # time.sleep(1)  # Updating the window in every one second
@@ -75,7 +78,7 @@ class DeployModel:
         with torch.no_grad():
 
             # send data and get model output
-            proc_data = self.process_data(x, samp_freq=512, nperseg=1024).cuda()
+            proc_data = self.process_data(x, samp_freq=512, nperseg=1024)
             out = self.model(proc_data)
             out = torch.argmax(out, dim=1).item()
 
