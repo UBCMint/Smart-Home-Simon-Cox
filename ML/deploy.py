@@ -8,7 +8,7 @@ import random
 
 class DeployModel:
 
-    def __init__(self, model_path='/ML/spectro_mlp_s14_21.pt', data_path='/ML/s14_val/', channels=64, seq_length=1024):
+    def __init__(self, model_path='./ML/spectro_mlp_s14_21.pt', data_path='./ML/s14_val/', channels=64, seq_length=1024):
 
         self.ch = channels
         self.seq_len = seq_length
