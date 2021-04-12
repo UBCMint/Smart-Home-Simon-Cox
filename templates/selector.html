@@ -1,0 +1,15 @@
+
+{% macro selector() -%}
+<div id="selector" style="display: none;">
+  <div id="selector__inner">
+    <h1>Selection Header</h1>
+    <form id="selector__form" >
+      <label class="radio-inline" id="selector__first">
+        <input type="radio" name="radio"><label>Option 1</label>
+        <span class="checkmark"></span>
+      </label>
+      <input id="selector__submit" type="submit" value ="Next">
+    </form>
+  </div>
+</div>
+{%- endmacro %}

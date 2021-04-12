@@ -1,0 +1,267 @@
+:root {
+  --mint: #35CDC5;
+  --blue: #1D809F;
+  --grey: #808080;
+  --lightgrey: #F1F1F1;
+  --black: #060606;
+  --yellow: #ECB807;
+  --white: #fff;
+}
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  margin: 0
+}
+
+#navbar {
+  display: flex;
+  flex-flow: row nowrap;
+  margin: 0 5%;
+  padding: 25px 0 0 0;
+  height: 80px;
+  overflow: hidden;
+}
+
+#navbar img {
+  width: 79px;
+  height: 49px;
+  margin: 2px 10px 0 0;
+}
+
+#navbar h1 {
+  color: var(--grey);
+  margin: 0;
+  font-size: 40px;
+  letter-spacing: 4px
+}
+
+#selector {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 380px);
+  overflow: hidden;
+}
+
+#selector__form {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+#selector__submit {
+  background-color: var(--blue);
+  color: var(--white);
+  border: 0;
+  border-radius: 9px;
+  padding: 10px 0;
+  font-size: 20px;
+  margin: 30px auto;
+  width: 150px;
+  font-weight: bold;
+}
+
+#alert {
+  position: fixed;
+  display: flex;
+  flex-flow: column nowrap;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 200px);
+  width: 100vw;
+  overflow: hidden;
+}
+
+#alert__inner {
+  width: 300px;
+  background-color: var(--lightgrey);
+  padding: 20px 100px;
+  border-radius: 9px;
+}
+
+#alert__title {
+  margin: 0
+}
+
+#alert__desc {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+#alert__button {
+  background-color: var(--blue);
+  color: var(--white);
+  border-radius: 9px;
+  padding: 10px 0;
+  font-size: 20px;
+  margin: 30px auto;
+  width: 150px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+
+#controls {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#controls__buttons {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+#controls__channel {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin: 0 100px 0 0;
+}
+
+#controls__power {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+#controls h2 {
+  color: var(--grey);
+  margin: 0 0 0 20px;
+  font-size: 30px;
+}
+
+.controls__power_btn {
+  height: 40px;
+  width: 40px;
+  border-style: solid;
+  border-color: var(--blue);
+  border-width: 7px;
+  border-radius: 100%;
+}
+
+#controls__power_btn_selected {
+  background-color: var(--blue);
+}
+
+#controls__power_btn_clicked {
+  background-color: var(--yellow);
+}
+
+.controls__down {
+  transform: rotate(180deg);
+  margin: 10px 0 0 0;
+}
+
+#connected__body {
+  display: flex;
+  flex-flow: column nowrap;
+  height: calc(100vh - 105px);
+}
+
+#graph {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  flex-grow: 2;
+}
+
+#graph__slide {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+#controls__button {
+  background-color: var(--blue);
+  color: var(--white);
+  border: 0;
+  border-radius: 9px;
+  padding: 10px 0;
+  font-size: 20px;
+  margin: 30px auto;
+  width: 150px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+
+#graph__button {
+  display: flex;
+  justify-content: center;
+  transform: rotate(180deg);
+  margin: 0 0 20px 0;
+  width: 100%
+}
+
+#graph__button img {
+  cursor: pointer;
+}
+
+/*  Radio Buttons  */
+.radio-inline {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.radio-inline input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: var(--white);
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.radio-inline:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.radio-inline input:checked ~ .checkmark {
+  background-color: var(--blue);
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radio-inline input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radio-inline .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--white);
+}

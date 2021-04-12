@@ -1,2 +1,6 @@
+node_modules/
+.vscode
+*.pyc
+*.pyo
 ML/s14_val
 ML/spectro*
